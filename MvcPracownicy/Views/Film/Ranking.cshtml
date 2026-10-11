@@ -1,0 +1,88 @@
+@model IEnumerable<MvcPracownicy.Models.FilmRankingViewModel>
+
+@{
+    ViewData["Title"] = "Ranking Filmów";
+}
+
+<div class="container mt-4">
+    <h1>Ranking Filmów</h1>
+    <p class="text-muted">Filmy posortowane według średniej oceny z recenzji</p>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th style="width: 30%;">Tytuł</th>
+                        <th style="width: 10%;">Rok</th>
+                        <th style="width: 18%;">Gatunek</th>
+                        <th style="width: 18%;">Studio</th>
+                        <th style="width: 12%;">Średnia Ocena</th>
+                        <th style="width: 12%;">Liczba Recenzji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int lp = 1;
+                        foreach (var film in Model)
+                        {
+                    <tr>
+                        <td>
+                            <span class="badge bg-primary">@lp</span>
+                        </td>
+                        <td><strong>@film.Tytul</strong></td>
+                        <td>@film.Rok</td>
+                        <td>@film.GatunekNazwa</td>
+                        <td>@film.StudioNazwa</td>
+                        <td>
+                            @if (film.SredniaOcena > 0)
+                            {
+                                <span class="badge bg-success">@film.SredniaOcena/10</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Brak ocen</span>
+                            }
+                        </td>
+                        <td>
+                            @if (film.LiczbaRecenzji > 0)
+                            {
+                                <span class="badge bg-info">@film.LiczbaRecenzji</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">0</span>
+                            }
+                        </td>
+                    </tr>
+                            lp++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-3" role="alert">
+            Brak filmów w bazie danych.
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">Wróć do listy filmów</a>
+    </div>
+</div>
+
+<style>
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .badge {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+</style>

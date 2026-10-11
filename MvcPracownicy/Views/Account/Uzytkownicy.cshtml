@@ -1,0 +1,73 @@
+@model IEnumerable<MvcPracownicy.Models.UzytkownikViewModel>
+
+@{
+    ViewData["Title"] = "Zarządzanie Użytkownikami";
+}
+
+<div class="container mt-4">
+    <h1>Zarządzanie Użytkownikami</h1>
+    <p class="text-muted">Panel administracyjny - zarządzanie kontami użytkowników</p>
+
+    <div class="mb-3">
+        <a asp-action="DodajUzytkownika" class="btn btn-success">+ Dodaj nowego użytkownika</a>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Login</th>
+                        <th>Token API</th>
+                        <th>Rola</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td><strong>@user.Login</strong></td>
+                            <td><code>@user.Token</code></td>
+                            <td>
+                                @if (user.IsAdmin)
+                                {
+                                    <span class="badge bg-danger">Administrator</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-info">Użytkownik</span>
+                                }
+                            </td>
+                            <td>
+                                @if (user.Id != 1)
+                                {
+                                    <form asp-action="UsunUzytkownika" asp-route-id="@user.Id" method="post" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')">Usuń</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Nie można usunąć</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            Brak użytkowników w systemie.
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-action="Panel" class="btn btn-secondary">Wróć do panelu</a>
+    </div>
+</div>

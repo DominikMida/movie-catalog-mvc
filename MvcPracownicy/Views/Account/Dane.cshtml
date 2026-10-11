@@ -1,0 +1,19 @@
+@model List<string>
+
+<h2>Dane</h2>
+
+<form method="post" action="/Account/DodajDana">
+    <input name="tekst" placeholder="wpisz dane" />
+    <button type="submit">Dodaj</button>
+</form>
+
+<hr />
+
+<ul>
+@foreach (var d in Model)
+{
+    <li>@d</li>
+}
+</ul>
+
+<a href="/Account/Panel">Powrót</a>

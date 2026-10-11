@@ -1,0 +1,21 @@
+<div class="container mt-5">
+    <div class="card" style="max-width: 500px; margin: 0 auto;">
+        <div class="card-body">
+            <h2 class="card-title">Panel użytkownika</h2>
+            <p class="card-text">Witaj <strong>@Context.Session.GetString("user")</strong></p>
+
+            @if (Context.Session.GetString("isAdmin") == "1")
+            {
+                <div class="alert" role="alert" style="background-color: rgba(30, 41, 59, 0.9); border: 1px solid rgba(59, 130, 246, 0.4); color: #60a5fa;">
+                    <strong>⚙️ Jesteś administratorem systemu</strong>
+                </div>
+            }
+
+            <div class="d-grid gap-2 mt-4">
+                <form method="get" action="/Account/Wyloguj">
+                    <button type="submit" class="btn btn-danger">Wyloguj</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

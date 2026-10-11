@@ -1,0 +1,228 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - MvcPracownicy</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MvcPracownicy.styles.css" asp-append-version="true" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a, #111827, #1e293b);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: rgba(15, 23, 42, 0.95) !important;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3) !important;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+        }
+
+        .navbar-brand {
+            color: #60a5fa !important;
+            font-weight: 600;
+            font-size: 24px;
+        }
+
+        .nav-link {
+            color: #cbd5e1 !important;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #60a5fa !important;
+        }
+
+        .container main {
+            background-color: rgba(30, 41, 59, 0.92);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: white;
+        }
+
+        .container main h1,
+        .container main h2,
+        .container main h3,
+        .container main h4,
+        .container main h5,
+        .container main h6,
+        .container main p,
+        .container main label,
+        .container main td,
+        .container main th,
+        .container main a,
+        .container main span,
+        .container main li,
+        .container main div {
+            color: white !important;
+        }
+
+        .container {
+            padding-bottom: 40px;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #94a3b8 !important;
+            border-top: 1px solid rgba(59, 130, 246, 0.2) !important;
+            background-color: rgba(15, 23, 42, 0.8);
+            padding: 15px 0;
+        }
+
+        footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark mb-3">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    MvcPracownicy
+                </a>
+
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                    @if (Context.Session.GetString("user") != null)
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                    Home
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Privacy">
+                                    Privacy
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Film" asp-action="Index">
+                                    Filmy
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Film" asp-action="Ranking">
+                                    Ranking
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Gatunek" asp-action="Index">
+                                    Gatunki
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Recenzja" asp-action="Index">
+                                    Recenzje
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Studio" asp-action="Index">
+                                    Studia
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Dane">
+                                    Dane
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Panel">
+                                    Panel
+                                </a>
+                            </li>
+
+                            @if (Context.Session.GetString("isAdmin") == "1")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Account/Uzytkownicy" style="color: #fbbf24 !important;">
+                                        👤 Użytkownicy
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Wyloguj">
+                                    Wyloguj
+                                </a>
+                            </li>
+
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Logowanie">
+                                    Logowanie
+                                </a>
+                            </li>
+
+                        </ul>
+                    }
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+    </div>
+
+    <footer class="footer text-muted">
+        <div class="container">
+            &copy; 2026 - MvcPracownicy
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
